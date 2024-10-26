@@ -1,3 +1,4 @@
+
 ## ANTI DEBUGGING
 from AntiDebug.CheckBlacklistedWindowsNames import CheckTitles
 from AntiDebug.CheckInternetConnection import check_connection
@@ -87,11 +88,6 @@ def main():
     else:
         print("[DEBUG CHECK] No KVM components detected.")
 
-    if set_process_critical():
-        print("[DEBUG CHECK] Process set as critical.")
-    else:
-        print("[DEBUG CHECK] Failed to set process as critical, admin permissions arent present.")
-
 
 
 
@@ -138,3 +134,5 @@ def main():
 if __name__ == "__main__":
     main()
     input()
+
+

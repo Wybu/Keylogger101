@@ -3,11 +3,11 @@ import sys
 
 def display_menu():
     print("\nCommand Menu:")
-    print("1. cd [path]      - Change directory on client")
-    print("2. keylog         - Start keylogger on client")
-    print("3. persist        - Enable persistence on client")
-    print("4. infect         - Start infection on client")
-    print("5. q              - Quit the session")
+    print("1. cd [path]")
+    print("2. keylog")
+    print("3. persist")
+    print("4. infect <network_prefix> <target_port> <start_ip> <end_ip>")
+    print("5. q")
     print("Enter custom commands to execute directly on client.\n")
 
 def main():

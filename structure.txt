@@ -1,16 +1,16 @@
-1) Tạo kết nối giữa máy nạn nhân và máy kẻ tấn công (Để trong hàm Main) X
-2) Tạo hàm Shell để chờ các lệnh thực thi khác X
-3) Tự động khởi động mỗi khi máy tính khởi động X
-4) Chạy hoặc sinh ra chương trình khác 
-5) Di chuyển qua các thư mục khác nhau X
+1) Tạo kết nối giữa máy nạn nhân và máy kẻ tấn công (Để trong hàm Main) DONE
+2) Tạo hàm Shell để chờ các lệnh thực thi khác                          DONE
+3) Tự động khởi động mỗi khi máy tính khởi động                         DONE
+4) Chạy hoặc sinh ra chương trình khác                                  DONE
+5) Di chuyển qua các thư mục khác nhau                                  DONE
 6) Áp dụng Keylogger vào Backdoor
 
 Các tính năng sử dụng:
-- AntiVM X
-- AntiDebug X
-- AntiDisassembly
-- Hibernate 
-- Keylogger 
-- Infect to others X
+- AntiVM                    DONE
+- AntiDebug                 DONE
+- AntiDisassembly           
+- Hibernate                 
+- Keylogger                 
+- Infect to others          DONE
 - Obfucaste
 - Packing

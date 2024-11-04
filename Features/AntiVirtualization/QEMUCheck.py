@@ -17,5 +17,3 @@ def CheckForQEMU():
             return False, None
     except Exception as e:
         return False, f"Error accessing System32 directory: {e}"
-
-    return False, None

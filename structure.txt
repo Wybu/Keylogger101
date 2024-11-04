@@ -8,7 +8,6 @@
 Các tính năng sử dụng:
 - AntiVM                    DONE
 - AntiDebug                 DONE
-- AntiDisassembly           
 - Hibernate                 
 - Keylogger                 
 - Infect to others          DONE

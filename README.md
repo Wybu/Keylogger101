@@ -24,7 +24,7 @@ To get started with Keylogger101, clone the repository and install the required 
 
 
 git clone https://github.com/Wybu/Keylogger101.git
-cd Keylogger101
+
 # Install necessary libraries (if any)
 pip install -r requirements.txt
 

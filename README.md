@@ -25,8 +25,6 @@ To get started with Keylogger101, clone the repository and install the required 
 
 git clone https://github.com/Wybu/Keylogger101.git
 
-# Install necessary libraries (if any)
-pip install -r requirements.txt
 
 
 ## Usage
@@ -34,16 +32,6 @@ pip install -r requirements.txt
 1. Run the main script to initiate the keylogger and backdoor functionalities.
 2. Follow the instructions in the script to configure the connection parameters.
 
-**Note**: This project is intended for educational purposes only. Use responsibly and ethically.
-
-## License
-
-This project does not provide any license information. Please use it in accordance with local laws and regulations.
-
 ## Disclaimer
 
 This repository is for educational purposes only. Unauthorized access to computer systems is illegal and unethical. Always obtain permission before testing or deploying any security tools.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with your improvements or fixes.
